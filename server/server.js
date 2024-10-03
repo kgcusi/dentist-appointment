@@ -1,33 +1,33 @@
 import express from 'express';
-import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-
-import userRoutes from './routes/users.js';
+import connectDB from './src/config/db.js';
+import authRoutes from './src/routes/authRoutes.js';
+import userRoutes from './src/routes/userRoutes.js';
+import dentistRoutes from './src/routes/dentistRoutes.js';
+import appointmentRoutes from './src/routes/appointmentRoutes.js';
+import errorHandler from './src/middleware/errorHandler.js';
+import cors from 'cors';
+import morgan from 'morgan';
 
 dotenv.config();
 
+connectDB();
+
 const app = express();
 
-//Routes
+app.use(express.json());
+app.use(cors());
+app.use(morgan('dev'));
 
+app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/dentists', dentistRoutes);
+app.use('/api/appointments', appointmentRoutes);
 
-mongoose.connect(process.env.MONGO_ATLAS_URI).then(
-    () => {
-        console.log('Connected to MongoDB');
-    }
-).catch(
-    (err) => {
-        console.error('Error connecting to MongoDB', err);
-    }
-);
+app.use(errorHandler);
 
-app.get('/api', (req, res) => {
-    res.send('Hello World');
-    }
-);
+const PORT = process.env.PORT || 5000;
 
-app.listen(3000, () => {
-    console.log('Server is running on port 3000');
-    }
-);
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
