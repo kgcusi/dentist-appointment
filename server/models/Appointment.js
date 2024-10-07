@@ -1,4 +1,3 @@
-// src/models/Appointment.js
 import mongoose from 'mongoose';
 
 const AppointmentSchema = new mongoose.Schema(
@@ -15,6 +14,10 @@ const AppointmentSchema = new mongoose.Schema(
     },
     appointmentDate: {
       type: Date,
+      required: true
+    },
+    timeSlot: {
+      type: String,
       required: true
     },
     status: {

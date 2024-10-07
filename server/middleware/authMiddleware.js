@@ -1,8 +1,6 @@
-// src/middleware/authMiddleware.js
 import jwt from 'jsonwebtoken';
 
 export const protect = (req, res, next) => {
-  // Get token from header
   const token = req.header('Authorization')?.split(' ')[1];
 
   if (!token)
