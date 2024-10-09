@@ -24,11 +24,13 @@ import {
   FormLabel,
   FormMessage
 } from '@/components/ui/form';
+import { AlertNotice } from '@/components/common/Alert';
 
 function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const authStatus = useSelector((state) => state.auth.status);
+  const [error, setError] = React.useState(null);
 
   const loginSchema = z.object({
     email: z.string().email('Invalid email address'),
@@ -48,6 +50,9 @@ function Login() {
       if (action.type === 'auth/loginUser/fulfilled') {
         navigate('/dashboard');
       }
+      if (action.type === 'auth/loginUser/rejected') {
+        setError(action.payload.msg);
+      }
     });
   };
 
@@ -62,6 +67,13 @@ function Login() {
           </CardDescription>
         </CardHeader>
         <CardContent>
+          {error && (
+            <AlertNotice
+              variant="destructive"
+              message={error}
+              classNames={'mb-2'}
+            />
+          )}
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
               <FormField

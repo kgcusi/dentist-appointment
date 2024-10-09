@@ -24,11 +24,13 @@ import {
   FormLabel,
   FormMessage
 } from '@/components/ui/form';
+import { AlertNotice } from '@/components/common/Alert';
 
 function Register() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const authStatus = useSelector((state) => state.auth.status);
+  const [error, setError] = React.useState(null);
 
   const registerSchema = z.object({
     name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -50,6 +52,9 @@ function Register() {
       if (action.type === 'auth/registerUser/fulfilled') {
         navigate('/dashboard');
       }
+      if (action.type === 'auth/registerUser/rejected') {
+        setError(action.payload.msg);
+      }
     });
   };
 
@@ -64,6 +69,13 @@ function Register() {
           </CardDescription>
         </CardHeader>
         <CardContent>
+          {error && (
+            <AlertNotice
+              variant="destructive"
+              message={error}
+              classNames={'mb-2'}
+            />
+          )}
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
               <FormField

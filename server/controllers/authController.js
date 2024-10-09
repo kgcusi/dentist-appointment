@@ -12,7 +12,7 @@ export const registerUser = async (req, res, next) => {
     const { name, email, password } = req.body;
 
     let user = await User.findOne({ email });
-    if (user) return res.status(400).json({ msg: 'User already exists' });
+    if (user) return res.status(400).json({ msg: 'Email is already taken' });
 
     user = new User({ name, email, password });
 
@@ -50,8 +50,6 @@ export const loginUser = async (req, res, next) => {
     const token = jwt.sign(payload, process.env.JWT_SECRET, {
       expiresIn: '1d'
     });
-
-    res.json({ token });
   } catch (err) {
     next(err);
   }
