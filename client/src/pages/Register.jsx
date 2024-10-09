@@ -122,7 +122,7 @@ function Register() {
         <CardFooter className="text-sm">
           <p>
             Already have an account?{' '}
-            <Link variant="link" to={'/login'}>
+            <Link className="text-primary" to={'/login'}>
               Login here
             </Link>
           </p>

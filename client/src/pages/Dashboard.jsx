@@ -14,7 +14,7 @@ import {
   CardTitle,
   CardDescription
 } from '@/components/ui/card';
-import { useNavigate, Link } from 'react-router-dom'; // Import Link
+import { useNavigate, Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { format } from 'date-fns';
 

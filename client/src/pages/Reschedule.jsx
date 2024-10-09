@@ -359,20 +359,28 @@ function Reschedule() {
                     <p>No available time slots for the selected date.</p>
                   )
                 )}
-
-                <Button
-                  type="submit"
-                  className="w-full"
-                  disabled={
-                    updateStatus === 'loading' ||
-                    availableTimeSlots.length === 0 ||
-                    !form.formState.isValid
-                  }
-                >
-                  {updateStatus === 'loading'
-                    ? 'Rescheduling...'
-                    : 'Reschedule Appointment'}
-                </Button>
+                <div className="flex gap-x-2">
+                  <Button
+                    type="submit"
+                    className="w-full"
+                    disabled={
+                      updateStatus === 'loading' ||
+                      availableTimeSlots.length === 0 ||
+                      !form.formState.isValid
+                    }
+                  >
+                    {updateStatus === 'loading'
+                      ? 'Rescheduling...'
+                      : 'Reschedule Appointment'}
+                  </Button>
+                  <Button
+                    variant="secondary"
+                    className="px-10"
+                    onClick={() => navigate('/dashboard')}
+                  >
+                    Back
+                  </Button>
+                </div>
               </form>
             </Form>
           )}

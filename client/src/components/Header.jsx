@@ -14,20 +14,24 @@ function Header() {
 
   return (
     <header className="flex justify-between items-center p-4 bg-white shadow-md">
-      <Link to="/">
+      <Link className="text-primary" to="/">
         <h1 className="text-2xl font-bold">Dental Office</h1>
       </Link>
       <nav className="space-x-4">
         {isAuthenticated ? (
           <>
-            <Link to="/dashboard">Dashboard</Link>
+            <Link className="text-primary" to="/dashboard">
+              Dashboard
+            </Link>
             <Button variant="outline" onClick={handleLogout}>
               Logout
             </Button>
           </>
         ) : (
           <>
-            <Link to="/login">Login</Link>
+            <Link className="text-primary" to="/login">
+              Login
+            </Link>
             <Link to="/register">
               <Button>Register</Button>
             </Link>

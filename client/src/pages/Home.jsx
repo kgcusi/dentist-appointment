@@ -1,6 +1,14 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { CheckIcon, MapPin } from 'lucide-react';
+
+const services = [
+  'General Dentistry',
+  'Teeth Whitening',
+  'Orthodontics',
+  'Emergency Care'
+];
 
 function Home() {
   const navigate = useNavigate();
@@ -21,8 +29,31 @@ function Home() {
               Providing comprehensive dental services to keep your smile healthy
               and beautiful.
             </p>
+            <div className="mt-6 flex items-center gap-x-2">
+              <MapPin size={24} className="text-indigo-500" />
+              <p className="text-gray-600">1234 Elm Street, Toronto, ON</p>
+            </div>
+            <div className="mt-6 space-y-4">
+              <h2 className="text-xl font-semibold text-gray-900">
+                Services we offer
+              </h2>
+              <ul className="text-gray-900 flex flex-col gap-1">
+                {services.map((service) => (
+                  <li className="flex gap-2" key={service}>
+                    <span>
+                      <CheckIcon className="text-indigo-500" size={24} />
+                    </span>
+                    {service}
+                  </li>
+                ))}
+              </ul>
+            </div>
             <div className="mt-10 flex items-center gap-x-6">
-              <Button variant="default" onClick={() => navigate('/booking')}>
+              <Button
+                size="lg"
+                variant="default"
+                onClick={() => navigate('/booking')}
+              >
                 Book an appointment
               </Button>
             </div>

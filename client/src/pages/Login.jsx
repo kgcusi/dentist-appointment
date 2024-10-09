@@ -107,7 +107,7 @@ function Login() {
         <CardFooter className="text-sm">
           <p>
             Don't have an account?{' '}
-            <Link variant="default" to={'/register'}>
+            <Link className="text-primary" to={'/register'}>
               Register here
             </Link>
           </p>
