@@ -11,6 +11,9 @@ env:
 phases:
   pre_build:
     commands:
+      - echo Retrieving AWS Account ID...
+      - export AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+      - echo Account ID: $AWS_ACCOUNT_ID
       - echo Logging in to Amazon ECR...
       - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
   build:
@@ -22,7 +25,7 @@ phases:
       - docker tag $IMAGE_REPO_NAME_FRONTEND:$IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME_FRONTEND:$IMAGE_TAG
       - cd ..
       # Build Backend Docker Image
-      - cd frontend
+      - cd server
       - docker build -t $IMAGE_REPO_NAME_BACKEND:$IMAGE_TAG .
       - docker tag $IMAGE_REPO_NAME_BACKEND:$IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME_BACKEND:$IMAGE_TAG
       - cd ..
@@ -33,3 +36,15 @@ phases:
       - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME_FRONTEND:$IMAGE_TAG
       # Push Backend Image
       - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME_BACKEND:$IMAGE_TAG
+      # Deploy to EKS
+      - echo Installing kubectl...
+      - curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+      - chmod +x ./kubectl
+      - mv ./kubectl /usr/local/bin/kubectl
+      - echo Configuring kubeconfig...
+      - aws eks update-kubeconfig --region $AWS_DEFAULT_REGION --name your-cluster-name
+      - echo Applying Kubernetes manifests...
+      - kubectl apply -f k8s/deployment-backend.yaml
+      - kubectl apply -f k8s/service-backend.yaml
+      - kubectl apply -f k8s/deployment-frontend.yaml
+      - kubectl apply -f k8s/service-frontend.yaml
