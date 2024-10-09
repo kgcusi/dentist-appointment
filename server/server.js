@@ -24,7 +24,7 @@ app.use(cors());
 app.use(morgan('dev'));
 app.use(helmet());
 
-// app.use(rateLimiter);
+app.use(rateLimiter);
 
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);

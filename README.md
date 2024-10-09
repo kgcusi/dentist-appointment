@@ -1,27 +1,28 @@
 # Dentist Appointment System
 ## Overview
-The Dentist Appointment System is a web-based application designed to help dental clinics manage appointments, patient records, and treatment plans efficiently.
+The Dentist Appointment System is a web-based application designed to help dental clinics manage appointments
 
 ## Features
-- **Appointment Scheduling**: Easy scheduling and rescheduling of appointments.
+- **Appointment Scheduling**
 
 ## Packages
 ### Server-side:
-- **Express.js**: Web framework for Node.js.
-- **jsonwebtoken (JWT)**: For authentication and authorization.
-- **MongoDB**: NoSQL database used for storing patient and appointment data.
-- **Mongoose**: MongoDB object modeling for Node.js.
+- **Express.js**
+- **jsonwebtoken (JWT)**
+- **MongoDB**
+- **Mongoose**
 
 ### Client-side:
-- **Vite**: A fast development environment for modern web projects.
-- **React**: A JavaScript library for building user interfaces.
-- **Shadcn**: For building modern, reusable components with Tailwind CSS.
-- **TailwindCSS**: A utility-first CSS framework for rapidly building custom user interfaces.
+- **Vite**
+- **Redux**
+- **React**
+- **Shadcn**
+- **TailwindCSS**
 
 ## Installation
 1. Clone the repository:
     ```bash
-    git clone https://github.com/yourusername/dentist-appointment.git
+    git clone https://github.com/kgcusi/dentist-appointment.git
     ```
 2. Navigate to the project directory:
     ```bash
